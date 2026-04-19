@@ -87,7 +87,7 @@ function Index() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 py-20 text-center">
+      <section className="mx-auto max-w-6xl px-6 py-12 text-center sm:py-16">
         <h1
           className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl animate-fade-up"
           style={{ animationDelay: "0ms" }}
