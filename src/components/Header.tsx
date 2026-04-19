@@ -8,7 +8,7 @@ export function Header() {
         <Link to="/" className="flex items-center">
           <img src={logo} alt="RePlate" className="block h-12 w-auto" />
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-7 text-sm">
           <Link
             to="/"
             activeOptions={{ exact: true }}
