@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { offers } from "@/lib/offers";
+import { getOfferImage } from "@/lib/offerImages";
 
 export const Route = createFileRoute("/offres/$offerId")({
   loader: ({ params }) => {
@@ -40,49 +41,60 @@ export const Route = createFileRoute("/offres/$offerId")({
 
 function OfferDetail() {
   const { offer } = Route.useLoaderData();
+  const image = getOfferImage(offer.id);
+  const discount = Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100);
 
   return (
     <Layout>
-      <section className="mx-auto max-w-3xl px-6 py-12">
+      <section className="mx-auto max-w-3xl px-6 py-12 animate-fade-up">
         <Link to="/offres" className="text-sm text-muted-foreground hover:text-primary">
           ← Retour aux offres
         </Link>
 
-        <div className="mt-6 rounded-xl border border-border bg-card p-8">
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-secondary-foreground">
-              {offer.category}
+        <div className="mt-6 overflow-hidden rounded-xl border border-border bg-card">
+          <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
+            <img src={image} alt={offer.title} className="h-full w-full object-cover" />
+            <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground shadow">
+              -{discount}%
             </span>
-            <span className="text-xs text-muted-foreground">• {offer.city}</span>
-          </div>
-          <h1 className="mt-3 text-3xl font-bold text-foreground">{offer.title}</h1>
-          <p className="mt-1 text-muted-foreground">{offer.restaurant}</p>
-
-          <p className="mt-6 text-foreground/90">{offer.description}</p>
-
-          <div className="mt-6 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-            <div>
-              <span className="text-foreground">Mode :</span> {offer.mode}
-            </div>
-            <div>
-              <span className="text-foreground">Disponibilité :</span> {offer.pickupTime}
-            </div>
           </div>
 
-          <div className="mt-8 flex items-end justify-between border-t border-border pt-6">
-            <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-primary">{offer.price} MAD</span>
-              <span className="text-base text-muted-foreground line-through">
-                {offer.originalPrice} MAD
+          <div className="p-8">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-secondary-foreground">
+                {offer.category}
               </span>
+              <span className="text-xs text-muted-foreground">• {offer.city}</span>
             </div>
-            <Link
-              to="/commande/$offerId"
-              params={{ offerId: offer.id }}
-              className="rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-            >
-              Commander
-            </Link>
+            <h1 className="mt-3 text-3xl font-bold text-foreground">{offer.title}</h1>
+            <p className="mt-1 text-muted-foreground">{offer.restaurant}</p>
+
+            <p className="mt-6 text-foreground/90">{offer.description}</p>
+
+            <div className="mt-6 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+              <div>
+                <span className="text-foreground">Mode :</span> {offer.mode}
+              </div>
+              <div>
+                <span className="text-foreground">Disponibilité :</span> {offer.pickupTime}
+              </div>
+            </div>
+
+            <div className="mt-8 flex items-end justify-between border-t border-border pt-6">
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-bold text-primary">{offer.price} MAD</span>
+                <span className="text-base text-muted-foreground line-through">
+                  {offer.originalPrice} MAD
+                </span>
+              </div>
+              <Link
+                to="/commande/$offerId"
+                params={{ offerId: offer.id }}
+                className="rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-md"
+              >
+                Commander
+              </Link>
+            </div>
           </div>
         </div>
       </section>
