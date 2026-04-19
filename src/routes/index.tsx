@@ -3,12 +3,12 @@ import { Store, ShoppingBag, Bike, Leaf, Wallet, HeartHandshake } from "lucide-r
 import { Layout } from "@/components/Layout";
 import { OfferCard } from "@/components/OfferCard";
 import { offers } from "@/lib/offers";
-import foodTajine from "@/assets/food-tajine.jpg";
-import foodMsemen from "@/assets/food-msemen.jpg";
 import foodSandwich from "@/assets/food-sandwich.jpg";
 import foodPizza from "@/assets/food-pizza.jpg";
-import foodCouscous from "@/assets/food-salade.jpg";
-import foodPastries from "@/assets/food-pastries.jpg";
+import foodCroissants from "@/assets/food-croissants.jpg";
+import foodMuffins from "@/assets/food-muffins.jpg";
+import foodFrites from "@/assets/food-frites.jpg";
+import foodShawarma from "@/assets/food-shawarma.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,12 +30,12 @@ export const Route = createFileRoute("/")({
 });
 
 const foodImages = [
-  { src: foodTajine, label: "Tajine" },
-  { src: foodMsemen, label: "Msemen" },
   { src: foodSandwich, label: "Sandwich" },
   { src: foodPizza, label: "Pizza" },
-  { src: foodCouscous, label: "Salade fraîche" },
-  { src: foodPastries, label: "Pâtisseries" },
+  { src: foodCroissants, label: "Viennoiseries" },
+  { src: foodMuffins, label: "Muffins" },
+  { src: foodFrites, label: "Frites & nuggets" },
+  { src: foodShawarma, label: "Shawarma" },
 ];
 
 const steps = [
