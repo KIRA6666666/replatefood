@@ -13,6 +13,7 @@ import { Route as OffresRouteImport } from './routes/offres'
 import { Route as DevenirPartenaireRouteImport } from './routes/devenir-partenaire'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantLoginRouteImport } from './routes/restaurant.login'
+import { Route as RestaurantDashboardRouteImport } from './routes/restaurant.dashboard'
 import { Route as OffresOfferIdRouteImport } from './routes/offres.$offerId'
 import { Route as CommandeOfferIdRouteImport } from './routes/commande.$offerId'
 
@@ -36,6 +37,11 @@ const RestaurantLoginRoute = RestaurantLoginRouteImport.update({
   path: '/restaurant/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantDashboardRoute = RestaurantDashboardRouteImport.update({
+  id: '/restaurant/dashboard',
+  path: '/restaurant/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OffresOfferIdRoute = OffresOfferIdRouteImport.update({
   id: '/$offerId',
   path: '/$offerId',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/offres': typeof OffresRouteWithChildren
   '/commande/$offerId': typeof CommandeOfferIdRoute
   '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/dashboard': typeof RestaurantDashboardRoute
   '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/offres': typeof OffresRouteWithChildren
   '/commande/$offerId': typeof CommandeOfferIdRoute
   '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/dashboard': typeof RestaurantDashboardRoute
   '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/offres': typeof OffresRouteWithChildren
   '/commande/$offerId': typeof CommandeOfferIdRoute
   '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/dashboard': typeof RestaurantDashboardRoute
   '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRouteTypes {
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/offres'
     | '/commande/$offerId'
     | '/offres/$offerId'
+    | '/restaurant/dashboard'
     | '/restaurant/login'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/offres'
     | '/commande/$offerId'
     | '/offres/$offerId'
+    | '/restaurant/dashboard'
     | '/restaurant/login'
   id:
     | '__root__'
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/offres'
     | '/commande/$offerId'
     | '/offres/$offerId'
+    | '/restaurant/dashboard'
     | '/restaurant/login'
   fileRoutesById: FileRoutesById
 }
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   DevenirPartenaireRoute: typeof DevenirPartenaireRoute
   OffresRoute: typeof OffresRouteWithChildren
   CommandeOfferIdRoute: typeof CommandeOfferIdRoute
+  RestaurantDashboardRoute: typeof RestaurantDashboardRoute
   RestaurantLoginRoute: typeof RestaurantLoginRoute
 }
 
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/restaurant/login'
       fullPath: '/restaurant/login'
       preLoaderRoute: typeof RestaurantLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurant/dashboard': {
+      id: '/restaurant/dashboard'
+      path: '/restaurant/dashboard'
+      fullPath: '/restaurant/dashboard'
+      preLoaderRoute: typeof RestaurantDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offres/$offerId': {
@@ -170,8 +190,18 @@ const rootRouteChildren: RootRouteChildren = {
   DevenirPartenaireRoute: DevenirPartenaireRoute,
   OffresRoute: OffresRouteWithChildren,
   CommandeOfferIdRoute: CommandeOfferIdRoute,
+  RestaurantDashboardRoute: RestaurantDashboardRoute,
   RestaurantLoginRoute: RestaurantLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
