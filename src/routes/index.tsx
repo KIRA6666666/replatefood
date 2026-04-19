@@ -88,22 +88,31 @@ function Index() {
     <Layout>
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1
+          className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl animate-fade-up"
+          style={{ animationDelay: "0ms" }}
+        >
           Donnez une seconde vie aux bons repas.
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
+        <p
+          className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground animate-fade-up"
+          style={{ animationDelay: "150ms" }}
+        >
           Commandez les invendus à prix réduit près de chez vous.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div
+          className="mt-8 flex flex-wrap items-center justify-center gap-3 animate-fade-up"
+          style={{ animationDelay: "300ms" }}
+        >
           <Link
             to="/offres"
-            className="rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+            className="rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5"
           >
             Voir les offres
           </Link>
           <Link
             to="/devenir-partenaire"
-            className="rounded-md border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:border-primary hover:text-primary"
+            className="rounded-md border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:-translate-y-0.5"
           >
             Devenir partenaire
           </Link>
@@ -112,32 +121,31 @@ function Index() {
 
       {/* Food grid */}
       <section className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="mb-8 text-center">
+        <Reveal className="mb-8 text-center">
           <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
             Des repas près de chez vous
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Tajines, sandwichs, pâtisseries… une variété d'invendus chaque jour.
+            Sandwichs, pizzas, viennoiseries, desserts… une variété d'invendus chaque jour.
           </p>
-        </div>
+        </Reveal>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-          {foodImages.map((img) => (
-            <div
-              key={img.label}
-              className="group relative aspect-square overflow-hidden rounded-xl border border-border"
-            >
-              <img
-                src={img.src}
-                alt={img.label}
-                width={800}
-                height={800}
-                loading="lazy"
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                <span className="text-sm font-medium text-white">{img.label}</span>
+          {foodImages.map((img, i) => (
+            <Reveal key={img.label} delay={i * 70}>
+              <div className="group relative aspect-square overflow-hidden rounded-xl border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <img
+                  src={img.src}
+                  alt={img.label}
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                  <span className="text-sm font-medium text-white">{img.label}</span>
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -145,27 +153,26 @@ function Index() {
       {/* How it works */}
       <section className="bg-secondary/40">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="mb-10 text-center">
+          <Reveal className="mb-10 text-center">
             <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
               Comment ça marche
             </h2>
             <p className="mt-2 text-muted-foreground">Trois étapes simples, rien de plus.</p>
-          </div>
+          </Reveal>
           <div className="grid gap-5 sm:grid-cols-3">
             {steps.map((step, i) => (
-              <div
-                key={step.title}
-                className="rounded-xl border border-border bg-card p-6 text-center"
-              >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <step.icon size={22} />
+              <Reveal key={step.title} delay={i * 120}>
+                <div className="h-full rounded-xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 hover:scale-110">
+                    <step.icon size={22} />
+                  </div>
+                  <div className="mb-1 text-xs font-medium uppercase tracking-wider text-primary">
+                    Étape {i + 1}
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{step.text}</p>
                 </div>
-                <div className="mb-1 text-xs font-medium uppercase tracking-wider text-primary">
-                  Étape {i + 1}
-                </div>
-                <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{step.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -173,15 +180,17 @@ function Index() {
 
       {/* Featured offers */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="mb-6 flex items-end justify-between">
+        <Reveal className="mb-6 flex items-end justify-between">
           <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">Offres du moment</h2>
           <Link to="/offres" className="text-sm text-primary hover:underline">
             Tout voir →
           </Link>
-        </div>
+        </Reveal>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((o) => (
-            <OfferCard key={o.id} offer={o} />
+          {featured.map((o, i) => (
+            <Reveal key={o.id} delay={i * 100}>
+              <OfferCard offer={o} />
+            </Reveal>
           ))}
         </div>
       </section>
@@ -189,23 +198,25 @@ function Index() {
       {/* Why RePlate */}
       <section className="bg-secondary/40">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="mb-10 text-center">
+          <Reveal className="mb-10 text-center">
             <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
               Pourquoi RePlate
             </h2>
             <p className="mt-2 text-muted-foreground">
               Une bonne action pour vous, les restaurants et la planète.
             </p>
-          </div>
+          </Reveal>
           <div className="grid gap-5 sm:grid-cols-3">
-            {reasons.map((r) => (
-              <div key={r.title} className="rounded-xl border border-border bg-card p-6">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <r.icon size={20} />
+            {reasons.map((r, i) => (
+              <Reveal key={r.title} delay={i * 120}>
+                <div className="h-full rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <r.icon size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">{r.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{r.text}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">{r.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{r.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -213,38 +224,39 @@ function Index() {
 
       {/* Impact */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="mb-10 text-center">
+        <Reveal className="mb-10 text-center">
           <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">Notre impact</h2>
           <p className="mt-2 text-muted-foreground">
             Ensemble, nous changeons la manière de consommer au Maroc.
           </p>
-        </div>
+        </Reveal>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-xl border border-border bg-card p-6 text-center"
-            >
-              <div className="text-3xl font-bold text-primary">{s.value}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
-            </div>
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 80}>
+              <div className="rounded-xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
+                <div className="font-display text-3xl font-bold text-primary">{s.value}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
+              </div>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-12 rounded-2xl border border-border bg-card p-10 text-center">
-          <h3 className="text-2xl font-semibold text-foreground">
-            Prêt à sauver votre premier repas ?
-          </h3>
-          <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
-            Découvrez les offres disponibles aujourd'hui dans votre ville.
-          </p>
-          <Link
-            to="/offres"
-            className="mt-6 inline-block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Parcourir les offres
-          </Link>
-        </div>
+        <Reveal delay={200}>
+          <div className="mt-12 rounded-2xl border border-border bg-card p-10 text-center transition-all duration-300 hover:shadow-lg">
+            <h3 className="text-2xl font-semibold text-foreground">
+              Prêt à sauver votre premier repas ?
+            </h3>
+            <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
+              Découvrez les offres disponibles aujourd'hui dans votre ville.
+            </p>
+            <Link
+              to="/offres"
+              className="mt-6 inline-block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-md"
+            >
+              Parcourir les offres
+            </Link>
+          </div>
+        </Reveal>
       </section>
     </Layout>
   );
