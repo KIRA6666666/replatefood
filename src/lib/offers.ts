@@ -51,15 +51,16 @@ export const offers: Offer[] = [
   },
   {
     id: "4",
-    title: "Couscous royal",
-    restaurant: "Riad Andalous",
+    title: "Assortiment de viennoiseries",
+    restaurant: "Boulangerie Andalous",
     city: "Fès",
-    category: "Marocain",
+    category: "Boulangerie",
     mode: "Retrait",
-    originalPrice: 95,
-    price: 40,
-    description: "Couscous semoule fine, agneau, poulet, merguez et légumes du marché.",
-    pickupTime: "À récupérer entre 18h30 et 20h30",
+    originalPrice: 60,
+    price: 22,
+    description:
+      "Assortiment du jour : croissants, pains au chocolat et msemen, fraîchement préparés le matin.",
+    pickupTime: "À récupérer entre 18h et 20h",
   },
   {
     id: "5",
@@ -88,5 +89,5 @@ export const offers: Offer[] = [
 ];
 
 export const cities = ["Toutes les villes", "Casablanca", "Rabat", "Marrakech", "Fès"];
-export const categories = ["Toutes catégories", "Marocain", "Italien", "Japonais", "Fast-food", "Healthy"];
+export const categories = ["Toutes catégories", "Marocain", "Italien", "Japonais", "Fast-food", "Healthy", "Boulangerie"];
 export const modes = ["Tous les modes", "Livraison", "Retrait", "Les deux"];

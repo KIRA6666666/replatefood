@@ -7,7 +7,7 @@ import foodTajine from "@/assets/food-tajine.jpg";
 import foodMsemen from "@/assets/food-msemen.jpg";
 import foodSandwich from "@/assets/food-sandwich.jpg";
 import foodPizza from "@/assets/food-pizza.jpg";
-import foodCouscous from "@/assets/food-couscous.jpg";
+import foodCouscous from "@/assets/food-salade.jpg";
 import foodPastries from "@/assets/food-pastries.jpg";
 
 export const Route = createFileRoute("/")({
@@ -34,7 +34,7 @@ const foodImages = [
   { src: foodMsemen, label: "Msemen" },
   { src: foodSandwich, label: "Sandwich" },
   { src: foodPizza, label: "Pizza" },
-  { src: foodCouscous, label: "Couscous" },
+  { src: foodCouscous, label: "Salade fraîche" },
   { src: foodPastries, label: "Pâtisseries" },
 ];
 
@@ -75,10 +75,10 @@ const reasons = [
 ];
 
 const stats = [
-  { value: "12 480", label: "Repas sauvés" },
-  { value: "85+", label: "Restaurants partenaires" },
-  { value: "6", label: "Villes au Maroc" },
-  { value: "-55%", label: "Prix moyen vs. carte" },
+  { value: "320", label: "Repas sauvés" },
+  { value: "12", label: "Restaurants partenaires" },
+  { value: "2", label: "Villes au Maroc" },
+  { value: "-50%", label: "Prix moyen vs. carte" },
 ];
 
 function Index() {
