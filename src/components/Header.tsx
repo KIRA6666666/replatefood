@@ -4,9 +4,9 @@ import logo from "@/assets/replate-logo.png";
 export function Header() {
   return (
     <header className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2">
-        <Link to="/" className="flex items-center -my-2">
-          <img src={logo} alt="RePlate" className="h-16 w-auto block" />
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="RePlate" className="block h-12 w-auto" />
         </Link>
         <nav className="flex items-center gap-6 text-sm">
           <Link
