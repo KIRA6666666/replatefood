@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Store, ShoppingBag, Bike, Leaf, Wallet, HeartHandshake } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { OfferCard } from "@/components/OfferCard";
+import { Reveal } from "@/components/Reveal";
 import { offers } from "@/lib/offers";
 import foodSandwich from "@/assets/food-sandwich.jpg";
 import foodPizza from "@/assets/food-pizza.jpg";
