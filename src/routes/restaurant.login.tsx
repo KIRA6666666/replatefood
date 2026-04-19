@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 
@@ -13,9 +13,16 @@ export const Route = createFileRoute("/restaurant/login")({
 });
 
 function RestaurantLogin() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const inputClass =
     "w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none";
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.email || !form.password) return;
+    navigate({ to: "/restaurant/dashboard" });
+  };
 
   return (
     <Layout>
@@ -26,7 +33,7 @@ function RestaurantLogin() {
         </p>
 
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           className="mt-8 space-y-4 rounded-xl border border-border bg-card p-6"
         >
           <div>
