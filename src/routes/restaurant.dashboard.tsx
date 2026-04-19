@@ -31,6 +31,7 @@ type Offer = {
   price: number;
   mode: "Livraison" | "Retrait" | "Les deux";
   city: string;
+  image?: string;
 };
 
 const initialOrders: Order[] = [
@@ -63,7 +64,16 @@ function RestaurantDashboard() {
     price: 0,
     mode: "Les deux",
     city: "Casablanca",
+    image: "",
   });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setForm((f) => ({ ...f, image: reader.result as string }));
+    reader.readAsDataURL(file);
+  };
 
   const activeOffers = offers.length;
   const ordersToday = orders.length;
@@ -74,7 +84,7 @@ function RestaurantDashboard() {
   };
 
   const resetForm = () => {
-    setForm({ name: "", category: "Sandwich", originalPrice: 0, price: 0, mode: "Les deux", city: "Casablanca" });
+    setForm({ name: "", category: "Sandwich", originalPrice: 0, price: 0, mode: "Les deux", city: "Casablanca", image: "" });
     setEditingId(null);
     setShowForm(false);
   };
@@ -98,6 +108,7 @@ function RestaurantDashboard() {
       price: offer.price,
       mode: offer.mode,
       city: offer.city,
+      image: offer.image ?? "",
     });
     setEditingId(offer.id);
     setShowForm(true);
@@ -216,11 +227,24 @@ function RestaurantDashboard() {
             )}
             {offers.map((o) => (
               <div key={o.id} className="flex flex-wrap items-center justify-between gap-3 p-5">
-                <div>
-                  <p className="font-medium text-foreground">{o.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {o.category} • {o.city} • {o.mode}
-                  </p>
+                <div className="flex items-center gap-4">
+                  {o.image ? (
+                    <img
+                      src={o.image}
+                      alt={o.name}
+                      className="h-16 w-16 rounded-md object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-16 items-center justify-center rounded-md bg-secondary text-xs text-muted-foreground">
+                      No img
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-medium text-foreground">{o.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {o.category} • {o.city} • {o.mode}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
