@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { offers } from "@/lib/offers";
+import { getOfferImage } from "@/lib/offerImages";
 
 export const Route = createFileRoute("/offres/$offerId")({
   loader: ({ params }) => {
