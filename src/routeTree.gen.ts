@@ -9,38 +9,120 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OffresRouteImport } from './routes/offres'
+import { Route as DevenirPartenaireRouteImport } from './routes/devenir-partenaire'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RestaurantLoginRouteImport } from './routes/restaurant.login'
+import { Route as OffresOfferIdRouteImport } from './routes/offres.$offerId'
+import { Route as CommandeOfferIdRouteImport } from './routes/commande.$offerId'
 
+const OffresRoute = OffresRouteImport.update({
+  id: '/offres',
+  path: '/offres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevenirPartenaireRoute = DevenirPartenaireRouteImport.update({
+  id: '/devenir-partenaire',
+  path: '/devenir-partenaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantLoginRoute = RestaurantLoginRouteImport.update({
+  id: '/restaurant/login',
+  path: '/restaurant/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffresOfferIdRoute = OffresOfferIdRouteImport.update({
+  id: '/$offerId',
+  path: '/$offerId',
+  getParentRoute: () => OffresRoute,
+} as any)
+const CommandeOfferIdRoute = CommandeOfferIdRouteImport.update({
+  id: '/commande/$offerId',
+  path: '/commande/$offerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/devenir-partenaire': typeof DevenirPartenaireRoute
+  '/offres': typeof OffresRouteWithChildren
+  '/commande/$offerId': typeof CommandeOfferIdRoute
+  '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/devenir-partenaire': typeof DevenirPartenaireRoute
+  '/offres': typeof OffresRouteWithChildren
+  '/commande/$offerId': typeof CommandeOfferIdRoute
+  '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/devenir-partenaire': typeof DevenirPartenaireRoute
+  '/offres': typeof OffresRouteWithChildren
+  '/commande/$offerId': typeof CommandeOfferIdRoute
+  '/offres/$offerId': typeof OffresOfferIdRoute
+  '/restaurant/login': typeof RestaurantLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/devenir-partenaire'
+    | '/offres'
+    | '/commande/$offerId'
+    | '/offres/$offerId'
+    | '/restaurant/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/devenir-partenaire'
+    | '/offres'
+    | '/commande/$offerId'
+    | '/offres/$offerId'
+    | '/restaurant/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/devenir-partenaire'
+    | '/offres'
+    | '/commande/$offerId'
+    | '/offres/$offerId'
+    | '/restaurant/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DevenirPartenaireRoute: typeof DevenirPartenaireRoute
+  OffresRoute: typeof OffresRouteWithChildren
+  CommandeOfferIdRoute: typeof CommandeOfferIdRoute
+  RestaurantLoginRoute: typeof RestaurantLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/offres': {
+      id: '/offres'
+      path: '/offres'
+      fullPath: '/offres'
+      preLoaderRoute: typeof OffresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/devenir-partenaire': {
+      id: '/devenir-partenaire'
+      path: '/devenir-partenaire'
+      fullPath: '/devenir-partenaire'
+      preLoaderRoute: typeof DevenirPartenaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +130,57 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurant/login': {
+      id: '/restaurant/login'
+      path: '/restaurant/login'
+      fullPath: '/restaurant/login'
+      preLoaderRoute: typeof RestaurantLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offres/$offerId': {
+      id: '/offres/$offerId'
+      path: '/$offerId'
+      fullPath: '/offres/$offerId'
+      preLoaderRoute: typeof OffresOfferIdRouteImport
+      parentRoute: typeof OffresRoute
+    }
+    '/commande/$offerId': {
+      id: '/commande/$offerId'
+      path: '/commande/$offerId'
+      fullPath: '/commande/$offerId'
+      preLoaderRoute: typeof CommandeOfferIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface OffresRouteChildren {
+  OffresOfferIdRoute: typeof OffresOfferIdRoute
+}
+
+const OffresRouteChildren: OffresRouteChildren = {
+  OffresOfferIdRoute: OffresOfferIdRoute,
+}
+
+const OffresRouteWithChildren =
+  OffresRoute._addFileChildren(OffresRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DevenirPartenaireRoute: DevenirPartenaireRoute,
+  OffresRoute: OffresRouteWithChildren,
+  CommandeOfferIdRoute: CommandeOfferIdRoute,
+  RestaurantLoginRoute: RestaurantLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
