@@ -29,7 +29,7 @@ export function Header() {
             className="text-foreground/80 hover:text-primary"
             activeProps={{ className: "text-primary font-medium" }}
           >
-            Devenir partenaire
+            Zakaria
           </Link>
           <Link
             to="/restaurant/login"
